@@ -1,0 +1,15 @@
+<!--users/templates/registration/login.html-->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Login</h2>
+{{request.path}}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Login">
+</form>
+<a href="{% url 'users:pass-reset' %}">Reset password</a>
+<a href="{% url 'store:index' %}">Back to store</a>
+{% endblock %}

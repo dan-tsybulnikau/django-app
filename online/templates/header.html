@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Game sore</title>
+
+</head>
+<body>
+    {% load socialaccount %}
+    <!-- Header -->
+    {% if user.is_authenticated %}
+    <p>Добро пожаловать, {{user}}</p>
+        <a href={% url 'users:logout' %}>Выход</a>
+        <a href={% url 'users:change' %}>Смена пароля</a>
+
+
+    {% else %}
+        <a href={% url 'users:login' %}>Вход</a>
+        <a href={% url 'account_login' %}>Github</a>
+        <a href={% url 'users:register' %}>Регистрация</a>
+    {% endif %}
+        <div>
+        <a href={% url 'store:all-categories' %}>Все категории</a>
+    </div>
+    <hr>
