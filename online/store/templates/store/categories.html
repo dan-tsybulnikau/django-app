@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for category in categories %}
+
+<div>
+    <a href="{% url 'store:category-products' category.slug %}"><strong>{{ category.title }} - Всего игр: {{category.game_number}}</strong></a>
+</div>
+
+{% endfor %}
+
+{% endblock content %}

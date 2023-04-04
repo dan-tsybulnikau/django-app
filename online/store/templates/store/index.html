@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{{ request.get_full_path }}
+
+
+<div>
+    <p>Цена</p>
+    <ul>
+        <li><a href="{{request.get_path}}?order_by=price:asc">По возрастанию</a></li>
+        <li><a href="{{request.get_path}}?order_by=price:desc">По убыванию</a></li>
+    </ul>
+</div>
+<div>
+    <p>Название</p>
+    <ul>
+        <li><a href="{{request.get_path}}?order_by=name:asc">По возрастанию</a></li>
+        <li><a href="{{request.get_path}}?order_by=name:desc">По убыванию</a></li>
+    </ul>
+</div>
+<div>
+    <a href="{% url 'store:index' %}">Сбросить</a></li>
+</div>
+<br>
+
+<p>{{user}}</p>
+
+{% for game in page_obj %}
+
+<!-- Games-->
+
+<div>
+    <a href="{% url 'store:game-detail' game.slug %}">{{game.name}}</a>
+    <p>Release date {{game.release_date}}</p>
+    <p>$ {{game.price}}</p>
+    <img width="150" height="200" src="{{ game.game_image.url }}" alt="{{ game.name }}">
+</div>
+<hr>
+{% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=&order_by={{field}}:{{direction}}">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}&order_by={{field}}:{{direction}}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&order_by={{field}}:{{direction}}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&order_by={{field}}:{{direction}}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock content %}
